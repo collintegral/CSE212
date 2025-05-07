@@ -33,7 +33,7 @@ public static class Algorithms {
     /// The count variable is keeping track of the amount
     /// of work done in the function.  When the function is 
     /// done the count is returned.
-    /// </summary>
+    /// </summary> O(N)
     /// <param name="size">the amount of work to do</param>
     private static int Algorithm1(int size) {
         var count = 0;
@@ -47,7 +47,7 @@ public static class Algorithms {
     /// The count variable is keeping track of the amount
     /// of work done in the function.  When the function is 
     /// done the count is returned.
-    /// </summary>
+    /// </summary> O(N^2)
     /// <param name="size">the amount of work to do</param>
     private static int Algorithm2(int size) {
         var count = 0;
@@ -62,7 +62,7 @@ public static class Algorithms {
     /// The count variable is keeping track of the amount
     /// of work done in the function.  When the function is 
     /// done the count is returned.
-    /// </summary>
+    /// </summary> O(logN)
     /// <param name="size">the amount of work to do</param>
     private static int Algorithm3(int size) {
         var count = 0;
