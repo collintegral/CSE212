@@ -10,25 +10,53 @@ public class CustomerService {
 
         // Test Cases
 
-        // Test 1
-        // Scenario: 
-        // Expected Result: 
-        Console.WriteLine("Test 1");
+        // Test 0
+        // Scenario: Maxlength set to negative.
+        // Expected Result: Maxlength is set to 10 automatically.
+        Console.WriteLine("Test 0");
+        var customerQ = new CustomerService(-8);
+        Console.WriteLine(customerQ._maxSize);
 
-        // Defect(s) Found: 
+        // Test 1
+        // Scenario: No customers added, serve attempted
+        // Expected Result: Error: No Customers in Queue.
+        Console.WriteLine("Test 1");
+        customerQ = new CustomerService(8);
+        customerQ.ServeCustomer();
+
+        // Defect(s) Found: Did not check for empty queue.
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: 2 customers added, serve attempted, customer added, 2 serves attempted.
+        // Expected Result: 3 successful serves in order from first added to last. After first serve, one customer should be waiting. After last, none should be.
         Console.WriteLine("Test 2");
+        customerQ = new CustomerService(3);
+        customerQ.AddNewCustomer();
+        customerQ.AddNewCustomer();
+        customerQ.ServeCustomer();
+        Console.WriteLine(customerQ);
+        customerQ.AddNewCustomer();
+        customerQ.ServeCustomer();
+        customerQ.ServeCustomer();
+        Console.WriteLine(customerQ);
 
-        // Defect(s) Found: 
+        // Defect(s) Found: Emptied queue before retrieving from it.
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: Maxlength 2, too many customers added.
+        // Expected Result: Warning after 2 customers.
+        Console.WriteLine("Test 3");
+        customerQ = new CustomerService(2);
+        customerQ.AddNewCustomer();
+        customerQ.AddNewCustomer();
+        customerQ.AddNewCustomer();
+        customerQ.AddNewCustomer();
+
+        // Defect(s) Found: AddNewCustomer allows for one too many customers in queue.
     }
 
     private readonly List<Customer> _queue = new();
@@ -66,8 +94,8 @@ public class CustomerService {
     /// new record into the queue.
     /// </summary>
     private void AddNewCustomer() {
-        // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        // Verify there is room in the service queue. Should not start = _maxsize.
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,8 +116,14 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
+        // Check Queue for length > 0
+        if (_queue.Count <= 0) {
+            Console.WriteLine("Error: No Customers in Queue.");
+            return;
+        }
+        // Save first, delete after
         var customer = _queue[0];
+        _queue.RemoveAt(0);
         Console.WriteLine(customer);
     }
 
