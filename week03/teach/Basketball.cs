@@ -23,14 +23,26 @@ public class Basketball
         reader.TextFieldType = FieldType.Delimited;
         reader.SetDelimiters(",");
         reader.ReadFields(); // ignore header row
-        while (!reader.EndOfData) {
+        while (!reader.EndOfData)
+        {
             var fields = reader.ReadFields()!;
             var playerId = fields[0];
             var points = int.Parse(fields[8]);
+            
+            if (players.TryAdd(playerId, points)) { }
+            else { players[playerId] += points; }
         }
 
-        Console.WriteLine($"Players: {{{string.Join(", ", players)}}}");
+        var playersArray = players.ToArray();
+        Array.Sort(playersArray, (pairA, pairB) => { return pairB.Value - pairA.Value; });
 
-        var topPlayers = new string[10];
+        for (var i = 0; i < 10; i++) {
+            Console.WriteLine(playersArray[i]);
+        }
+        
+
+        //Console.WriteLine($"Players: {{{string.Join(", ", players)}}}");
+
+        //var topPlayers = new string[10];
     }
 }
