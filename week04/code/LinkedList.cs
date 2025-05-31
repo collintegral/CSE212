@@ -150,6 +150,10 @@ public class LinkedList : IEnumerable<int>
                 }
                 return;
             }
+            else
+            {
+                curr = curr.Next;
+            }
         }
     }
 
@@ -165,6 +169,7 @@ public class LinkedList : IEnumerable<int>
             {
                 curr.Data = newValue;
             }
+            curr = curr.Next;
         }
     }
 
